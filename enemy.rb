@@ -5,7 +5,7 @@ class Enemy
     @x, @y = x, y
     @dir = :right
     @map = map
-    @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles("media/cptn_ruby.png", 50, 50)
+    @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles("media/moving_enemy.png", 50, 50)
     @cur_image = @standing
     @move_x = 4
     @vy = 0 # Vertical velocity

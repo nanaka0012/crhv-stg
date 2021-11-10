@@ -34,15 +34,15 @@ require './collectible_gem'
 require './const'
 require './ui'
 
-class CptnRuby < (Example rescue Gosu::Window)
+class Main < (Example rescue Gosu::Window)
   def initialize
     super Const::Window::WIDTH, Const::Window::HEIGHT
 
-    self.caption = "Cptn. Ruby"
+    self.caption = "Collect. Ruby"
 
     @sky = Gosu::Image.new("media/space.png", tileable: true)
-    @map = Map.new("media/cptn_ruby_map.txt")
-    @cptn = Player.new(@map, 400, 100)
+    @map = Map.new("media/map.txt")
+    @player = Player.new(@map, 400, 100)
     @ui = UI.new(20)
     # The scrolling position is stored as top left corner of the screen.
     @camera_x = @camera_y = 0
@@ -52,29 +52,29 @@ class CptnRuby < (Example rescue Gosu::Window)
     move_x = 0
     move_x -= 5 if Gosu.button_down? Gosu::KB_LEFT
     move_x += 5 if Gosu.button_down? Gosu::KB_RIGHT
-    @cptn.update(move_x)
-    @cptn.collect_gems(@map.gems)
-    @cptn.collide_enemies(@map.enemies)
+    @player.update(move_x)
+    @player.collect_gems(@map.gems)
+    @player.collide_enemies(@map.enemies)
     @map.enemies.each { |e| e.update }
 
     # Scrolling follows player
-    @camera_x = [[@cptn.x - Const::Window::WIDTH / 2, 0].max, @map.width * 50 - Const::Window::WIDTH].min
-    @camera_y = [[@cptn.y - Const::Window::HEIGHT / 2, 0].max, @map.height * 50 - Const::Window::HEIGHT].min
+    @camera_x = [[@player.x - Const::Window::WIDTH / 2, 0].max, @map.width * 50 - Const::Window::WIDTH].min
+    @camera_y = [[@player.y - Const::Window::HEIGHT / 2, 0].max, @map.height * 50 - Const::Window::HEIGHT].min
   end
   
   def draw
     @sky.draw(0, 0, Const::ZOrder::BACKGROUND)
-    @ui.draw(@cptn.score)
+    @ui.draw(@player.score)
     Gosu.translate(-@camera_x, -@camera_y) do
       @map.draw
-      @cptn.draw
+      @player.draw
     end
   end
   
   def button_down(id)
     case id
     when Gosu::KB_UP
-      @cptn.try_to_jump
+      @player.try_to_jump
     when Gosu::KB_ESCAPE
       close
     else
@@ -83,4 +83,4 @@ class CptnRuby < (Example rescue Gosu::Window)
   end
 end
 
-CptnRuby.new.show if __FILE__ == $0
+Main.new.show if __FILE__ == $0

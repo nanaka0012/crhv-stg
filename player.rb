@@ -11,7 +11,7 @@ class Player
     @map = map
     @beep = Gosu::Sample.new("media/beep.wav")
     # Load all animation frames
-    @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles("media/cptn_ruby.png", 50, 50)
+    @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles("media/player.png", 50, 50)
     # This always points to the frame that is currently drawn.
     # This is set in update, and used in draw.
     @cur_image = @standing
@@ -84,7 +84,7 @@ class Player
     gems.reject! do |c|
       if (c.x - @x).abs < 50 and (c.y - @y).abs < 50
         @score += 10
-        @beep.play
+        @beep.play(0.3)
       end
     end
   end
@@ -93,7 +93,7 @@ class Player
     enemies.reject! do |e|
       if (e.x - @x).abs < 50 and (e.y - @y).abs < 50
         @score -= 20 if @score >= 20
-        @beep.play
+        @beep.play(0.3)
       end
     end
   end
