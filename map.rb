@@ -1,14 +1,17 @@
-require './const.rb'
-require './collectible_gem.rb'
-require './enemy.rb'
+require './const'
+require './collectible_gem'
+require './enemy'
+require './game_object'
 
 # Map class holds and draws tiles and gems.
-class Map
+class Map < GameObject
   attr_reader :width, :height, :gems, :enemies
-  
+
   def initialize(filename)
+    super()
+
     # Load 60x60 tiles, 5px overlap in all four directions.
-    @tileset = Gosu::Image.load_tiles("media/tileset.png", 60, 60, tileable: true)
+    @tileset = Gosu::Image.load_tiles('media/tileset.png', 60, 60, tileable: true)
 
     @gems = []
     @enemies = []
@@ -24,35 +27,37 @@ class Map
         when '#'
           Const::Tiles::EARTH
         when 'x'
-          @gems.push(CollectibleGem.new(x * 50 + 25, y * 50 + 25))
+          gem = CollectibleGem.new(x * 50 + 25, y * 50 + 25)
+          @gems.push(gem)
+          add_object(gem)
           nil
         when 'e'
-          @enemies.push(Enemy.new(self, x * 50 + 25, y * 50 + 25))
-          nil
-        else
+          enemy = Enemy.new(self, x * 50 + 25, y * 50 + 25)
+          @enemies.push(enemy)
+          add_object(enemy)
           nil
         end
       end
     end
   end
-  
+
   def draw
+    super
+
     # Very primitive drawing function:
     # Draws all the tiles, some off-screen, some on-screen.
     @height.times do |y|
       @width.times do |x|
         tile = @tiles[x][y]
-        if tile
-          # Draw the tile with an offset (tile images have some overlap)
-          # Scrolling is implemented here just as in the game objects.
-          @tileset[tile].draw(x * 50 - 5, y * 50 - 5, Const::ZOrder::TILES)
-        end
+        next unless tile
+
+        # Draw the tile with an offset (tile images have some overlap)
+        # Scrolling is implemented here just as in the game objects.
+        @tileset[tile].draw(x * 50 - 5, y * 50 - 5, Const::ZOrder::TILES)
       end
     end
-    @gems.each { |c| c.draw }
-    @enemies.each { |e| e.draw }
   end
-  
+
   # Solid at a given pixel position?
   def solid?(x, y)
     y < 0 || @tiles[x / 50][y / 50]
