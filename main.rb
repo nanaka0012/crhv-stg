@@ -34,7 +34,7 @@ require './collectible_gem'
 require './const'
 require './ui'
 
-class Main < (Example rescue Gosu::Window)
+class Main < Gosu::Window
   def initialize
     super Const::Window::WIDTH, Const::Window::HEIGHT
 
