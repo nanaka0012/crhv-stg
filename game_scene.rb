@@ -1,11 +1,12 @@
 require './game_object'
 require './map'
+require './game_ui'
 
 class GameScene < GameObject
   def initialize
     super
 
-    @sky = Gosu::Image.new('media/space.png', tileable: true)
+    @background = Gosu::Image.new('media/space.png', tileable: true)
 
     @map = Map.new('media/map.txt')
     add_object(@map)
@@ -13,14 +14,15 @@ class GameScene < GameObject
     @player = Player.new(@map, 400, 100)
     add_object(@player)
 
-    @ui = UI.new(20)
+    @ui = GameUI.new(20, @player)
+
     # The scrolling position is stored as top left corner of the screen.
     @camera_x = @camera_y = 0
   end
 
   def draw
-    @sky.draw(0, 0, Const::ZOrder::BACKGROUND)
-    @ui.draw(@player.score)
+    @background.draw(0, 0, Const::ZOrder::BACKGROUND)
+    @ui.draw
     Gosu.translate(-@camera_x, -@camera_y) do
       super
     end

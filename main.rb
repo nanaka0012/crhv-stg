@@ -1,18 +1,17 @@
 require 'gosu'
-require './player'
-require './map'
-require './collectible_gem'
 require './const'
-require './ui'
 require './game_scene'
+require './title_scene'
 
 class Main < Gosu::Window
+  attr_writer :scene
+
   def initialize
     super Const::Window::WIDTH, Const::Window::HEIGHT
 
     self.caption = 'Collect. Ruby'
 
-    @scene = GameScene.new
+    @scene = TitleScene.new
   end
 
   def update
@@ -33,4 +32,6 @@ class Main < Gosu::Window
   end
 end
 
-Main.new.show if __FILE__ == $0
+$main = Main.new
+
+$main.show if __FILE__ == $0
