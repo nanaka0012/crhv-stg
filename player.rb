@@ -17,7 +17,7 @@ class Player < GameObject
     @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles('media/player.png', 50, 50)
     @cur_image = @standing
     @score = 0
-    @life = 3
+    @life = 2
   end
 
   def draw
