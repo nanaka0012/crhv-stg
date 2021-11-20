@@ -3,7 +3,7 @@ require './game_object'
 require 'gosu'
 
 class Player < GameObject
-  attr_reader :x, :y, :score
+  attr_reader :x, :y, :score, :life
 
   def initialize(map, x, y)
     super()
@@ -17,6 +17,7 @@ class Player < GameObject
     @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles('media/player.png', 50, 50)
     @cur_image = @standing
     @score = 0
+    @life = 3
   end
 
   def draw
@@ -95,6 +96,7 @@ class Player < GameObject
 
       if res
         @score -= 20 if @score >= 20
+        @life -= 1
         @beep.play(0.3)
         e.parent.remove_object(e)
       end

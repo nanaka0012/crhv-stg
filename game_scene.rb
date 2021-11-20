@@ -1,6 +1,7 @@
 require './game_object'
 require './map'
 require './game_ui'
+require './game_over_scene'
 
 class GameScene < GameObject
   def initialize
@@ -14,7 +15,7 @@ class GameScene < GameObject
     @player = Player.new(@map, 400, 100)
     add_object(@player)
 
-    @ui = GameUI.new(20, @player)
+    @ui = GameUI.new(@player)
 
     @camera_x = @camera_y = 0
   end
@@ -34,6 +35,7 @@ class GameScene < GameObject
     @player.collect_gems(@map.gems)
     @player.collide_enemies(@map.enemies)
 
+    $main.scene = GameOverScene.new if @player.life == 0
     super
   end
 end
