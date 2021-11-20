@@ -37,7 +37,6 @@ class GameScene < GameObject
     @player.collide_enemies(@map.enemies)
 
     $main.scene = GameOverScene.new if @player.life == 0
-    $main.scene = GameCearScene.new if @map.gems.length == 0
     super
   end
 end
