@@ -10,7 +10,7 @@ class GameUI < GameObject
 
     @player = player
 
-    @score_ui = Gosu::Font.new(20)
+    @score_ui = Gosu::Font.new(32)
     @life_ui = Gosu::Image.load_tiles('media/player.png', 50, 50)[0]
   end
 
@@ -19,7 +19,7 @@ class GameUI < GameObject
 
     @score_ui.draw_text("Score: #{@player.score}", 10, 10, Const::ZOrder::UI, 1.0, 1.0, Gosu::Color::WHITE)
     @player.life.times do |i|
-      @life_ui.draw(Const::Window::WIDTH - 30 - 20 * i, 10, Const::ZOrder::UI, 0.5, 0.5)
+      @life_ui.draw(Const::Window::WIDTH - 35 - 30 * i, 10, Const::ZOrder::UI, 0.6, 0.6)
     end
   end
 end

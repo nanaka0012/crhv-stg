@@ -99,7 +99,6 @@ class Player < GameObject
       res = ((e.x - @x).abs < 50) && ((e.y - @y).abs < 50)
 
       if res
-        @score -= 20 if @score >= 20
         @life -= 1
         @collide_sound.play(0.2, 3)
         add_object(SmokeEffect.new)
