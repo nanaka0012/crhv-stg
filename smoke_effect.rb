@@ -11,9 +11,10 @@ class SmokeEffect < Effect
 
   def draw
     super
-    x_offset = @image.width * (0.1 + 0.2 * @count) / 2
+    x_offset = @image.width * (0.1 + 0.1 * @count) / 2
     y_offset = @image.height * (0.1 + 0.2 * @count) / 2
-    @image.draw(@x - x_offset, @y - y_offset, Const::ZOrder::EFFECT, 0.1 + 0.2 * @count, 0.1 + 0.2 * @count)
+    @image.draw(@x - x_offset, @y - y_offset, Const::ZOrder::EFFECT, 0.1 + 0.1 * @count, 0.1 + 0.1 * @count,
+                0xff_ffffff, :add)
   end
 
   def update

@@ -15,11 +15,12 @@ class Player < GameObject
     @dir = :left
     @vy = 0
     @map = map
-    @beep = Gosu::Sample.new('media/beep.wav')
+    @collect_sound = Gosu::Sample.new('media/beep.wav')
+    @collide_sound = Gosu::Sample.new('media/explosion.wav')
     @standing, @walk1, @walk2, @jump = *Gosu::Image.load_tiles('media/player.png', 50, 50)
     @cur_image = @standing
     @score = 0
-    @life = 2
+    @life = 3
   end
 
   def draw
@@ -84,7 +85,7 @@ class Player < GameObject
       res = ((c.x - @x).abs < 50) && ((c.y - @y).abs < 50)
       if res
         @score += 10
-        @beep.play(0.3)
+        @collect_sound.play(0.3)
         add_object(ShineEffect.new)
         c.parent.remove_object(c)
       end
@@ -100,7 +101,7 @@ class Player < GameObject
       if res
         @score -= 20 if @score >= 20
         @life -= 1
-        @beep.play(0.3)
+        @collide_sound.play(0.2, 3)
         add_object(SmokeEffect.new)
         e.parent.remove_object(e)
       end
