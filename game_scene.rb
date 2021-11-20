@@ -2,6 +2,7 @@ require './game_object'
 require './map'
 require './game_ui'
 require './game_over_scene'
+require './game_clear_scene'
 
 class GameScene < GameObject
   def initialize
@@ -36,6 +37,7 @@ class GameScene < GameObject
     @player.collide_enemies(@map.enemies)
 
     $main.scene = GameOverScene.new if @player.life == 0
+    $main.scene = GameCearScene.new if @map.gems.length == 0
     super
   end
 end

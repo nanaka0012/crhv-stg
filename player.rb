@@ -85,7 +85,7 @@ class Player < GameObject
       res = ((c.x - @x).abs < 50) && ((c.y - @y).abs < 50)
       if res
         @score += 10
-        @collect_sound.play(0.3)
+        @collect_sound.play(0.1, 4)
         add_object(ShineEffect.new)
         c.parent.remove_object(c)
       end
@@ -100,7 +100,7 @@ class Player < GameObject
 
       if res
         @life -= 1
-        @collide_sound.play(0.2, 3)
+        @collide_sound.play(0.1, 4)
         add_object(SmokeEffect.new)
         e.parent.remove_object(e)
       end
