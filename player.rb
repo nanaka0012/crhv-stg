@@ -1,5 +1,7 @@
 require './const'
 require './game_object'
+require './shine_effect'
+require './smoke_effect'
 require 'gosu'
 
 class Player < GameObject
@@ -83,6 +85,7 @@ class Player < GameObject
       if res
         @score += 10
         @beep.play(0.3)
+        add_object(ShineEffect.new)
         c.parent.remove_object(c)
       end
 
@@ -98,6 +101,7 @@ class Player < GameObject
         @score -= 20 if @score >= 20
         @life -= 1
         @beep.play(0.3)
+        add_object(SmokeEffect.new)
         e.parent.remove_object(e)
       end
 
