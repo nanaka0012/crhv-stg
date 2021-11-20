@@ -16,7 +16,6 @@ class GameScene < GameObject
 
     @ui = GameUI.new(20, @player)
 
-    # The scrolling position is stored as top left corner of the screen.
     @camera_x = @camera_y = 0
   end
 
@@ -29,7 +28,6 @@ class GameScene < GameObject
   end
 
   def update
-    # Scrolling follows player
     @camera_x = [[@player.x - Const::Window::WIDTH / 2, 0].max, @map.width * 50 - Const::Window::WIDTH].min
     @camera_y = [[@player.y - Const::Window::HEIGHT / 2, 0].max, @map.height * 50 - Const::Window::HEIGHT].min
 

@@ -15,7 +15,6 @@ class CollectibleGem < GameObject
   def draw
     super
 
-    # Draw, slowly rotating
     @image.draw_rot(@x, @y, Const::ZOrder::GEMS, 25 * Math.sin(Gosu.milliseconds / 133.7))
   end
 end
