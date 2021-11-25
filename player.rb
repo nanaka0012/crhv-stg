@@ -97,7 +97,6 @@ class Player < GameObject
   def collide_enemies(enemies)
     enemies.reject! do |e|
       res = ((e.x - @x).abs < 50) && ((e.y - @y).abs < 50)
-
       if res
         @life -= 1
         e.parent.remove_object(e)
