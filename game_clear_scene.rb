@@ -1,7 +1,7 @@
 require './game_object'
 require './const'
 
-class GameCearScene < GameObject
+class GameClearScene < GameObject
   def initialize
     super()
 

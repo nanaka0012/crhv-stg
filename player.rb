@@ -86,7 +86,8 @@ class Player < GameObject
       if res
         @score += 10
         @collect_sound.play(0.1, 4)
-        add_object(ShineEffect.new)
+        c.add_object(ShineEffect.new)
+        c.parent.remove_object(c)
       end
 
       res
@@ -99,7 +100,6 @@ class Player < GameObject
 
       if res
         @life -= 1
-        e.add_object(SmokeEffect.new)
         e.parent.remove_object(e)
       end
 
