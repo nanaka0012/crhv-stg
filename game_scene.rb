@@ -1,7 +1,6 @@
 require './game_object'
 require './map'
 require './game_ui'
-require './game_over_scene'
 require './game_clear_scene'
 
 class GameScene < GameObject
@@ -36,7 +35,6 @@ class GameScene < GameObject
     @player.collect_gems(@map.gems)
     @player.collide_enemies(@map.enemies)
 
-    $main.scene = GameOverScene.new if @player.life == 0
     super
   end
 end
